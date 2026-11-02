@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Session 2: Interactive Data Report",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.\n\n\nCode\nlibrary(tidyverse)\nlibrary(plotly)\nlibrary(leaflet)"
+  },
+  {
+    "objectID": "index.html#running-code",
+    "href": "index.html#running-code",
+    "title": "Session 2: Interactive Data Report",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n\nCode\np <- ggplot(airquality, aes(x = Temp, y = Ozone, color = factor(Month))) +\n geom_point(size = 2, alpha = 0.8) +\n labs(\n   x = \"Temperature (°F)\",\n   y = \"Ozone (ppb)\",\n   color = \"Month\"\n   ) +\n  theme_minimal()\n\nggplotly(p)\n\n\n\n\n\nFigure 1: Interactive daily ozone concentration vs. temperature in New York.\n\n\n\n\n\nCode\nleaflet() %>%\n   addTiles() %>%  # Default OpenStreetMap base tiles\n   addMarkers(\n       lng = -76.4533, \n       lat = 38.3191, \n       popup = \"UMCES - Chesapeake Biological Laboratory\") %>%\n   setView(\n       lng = -76.4533, \n       lat = 38.3191, \n       zoom = 10\n )\n\n\n\n\n\nFigure 2: Location of UMCES Chesapeake Biological Laboratory.\n\n\n\nSee @tlb-airquality for the numeric summary\n\n\nCode\n#! label: tbl-airquality\n#! tbl-cap: \"Stats summary\"\nlibrary(psych)\npsych::describe(airquality) |> \n  knitr::kable(digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvars\nn\nmean\nsd\nmedian\ntrimmed\nmad\nmin\nmax\nrange\nskew\nkurtosis\nse\n\n\n\n\nOzone\n1\n116\n42.13\n32.99\n31.5\n37.80\n25.95\n1.0\n168.0\n167\n1.21\n1.11\n3.06\n\n\nSolar.R\n2\n146\n185.93\n90.06\n205.0\n190.34\n98.59\n7.0\n334.0\n327\n-0.42\n-1.00\n7.45\n\n\nWind\n3\n153\n9.96\n3.52\n9.7\n9.87\n3.41\n1.7\n20.7\n19\n0.34\n0.03\n0.28\n\n\nTemp\n4\n153\n77.88\n9.47\n79.0\n78.28\n8.90\n56.0\n97.0\n41\n-0.37\n-0.46\n0.77\n\n\nMonth\n5\n153\n6.99\n1.42\n7.0\n6.99\n1.48\n5.0\n9.0\n4\n0.00\n-1.32\n0.11\n\n\nDay\n6\n153\n15.80\n8.86\n16.0\n15.80\n11.86\n1.0\n31.0\n30\n0.00\n-1.22\n0.72\n\n\n\n\n\nOur sample size is 153.\n\nSub-sub-section\n\n\nCode\n1 + 1\n\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  }
+]

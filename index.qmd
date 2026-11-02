@@ -1,0 +1,89 @@
+---
+title: "Session 2: Interactive Data Report"
+author: "Eric Heinze"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(plotly)
+library(leaflet)
+```
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+#| label: fig-scatter
+#| fig-cap: "Interactive daily ozone concentration vs. temperature in New York."
+
+p <- ggplot(airquality, aes(x = Temp, y = Ozone, color = factor(Month))) +
+ geom_point(size = 2, alpha = 0.8) +
+ labs(
+   x = "Temperature (°F)",
+   y = "Ozone (ppb)",
+   color = "Month"
+   ) +
+  theme_minimal()
+
+ggplotly(p)
+```
+
+```{r}
+#| label: fig-cbl
+#| fig-cap: "Location of UMCES Chesapeake Biological Laboratory."
+
+leaflet() %>%
+   addTiles() %>%  # Default OpenStreetMap base tiles
+   addMarkers(
+       lng = -76.4533, 
+       lat = 38.3191, 
+       popup = "UMCES - Chesapeake Biological Laboratory") %>%
+   setView(
+       lng = -76.4533, 
+       lat = 38.3191, 
+       zoom = 10
+ )
+```
+
+See @tlb-airquality for the numeric summary
+
+```{r}
+#! label: tbl-airquality
+#! tbl-cap: "Stats summary"
+library(psych)
+psych::describe(airquality) |> 
+  knitr::kable(digits = 2)
+```
+
+Our sample size is `r nrow(airquality)`.
+
+### Sub-sub-section
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
