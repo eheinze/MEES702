@@ -7,6 +7,7 @@
 *.docx
 *.xls
 *.xlsx
+*.nc
 
 data*/
 /.quarto/
