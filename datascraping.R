@@ -21,4 +21,13 @@ pop = pop_table |>
          Change_pct = `%±`) |> 
   slice(-n()) |>
   select(-3) |>
-  mutate(Year = as.numeric(substr(Year, 1, 4)))
+  mutate(Population = gsub(",", "", Population),
+         Change_pct = gsub("%", "", Change_pct)) |>
+  mutate(Change_pct = gsub("−", "-", Change_pct)) |>
+  mutate(Year = as.numeric(substr(Year, 1, 4)),
+         Population = as.numeric(Population),
+         Change_pct = as.numeric(Change_pct))
+
+summary(pop)
+
+write.csv(pop, "dataderived/popDC.csv", row.names = FALSE)
