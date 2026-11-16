@@ -31,3 +31,32 @@ pop = pop_table |>
 summary(pop)
 
 write.csv(pop, "dataderived/popDC.csv", row.names = FALSE)
+
+
+# API -----
+library(httr2)
+library(readr)
+
+# Build API request for NOAA station 8577330 (Solomons Island, MD)
+req <- request("https://api.tidesandcurrents.noaa.gov/api/prod/datagetter") |>
+  req_url_query(
+    begin_date  = "20240101",
+    end_date    = "20240131",
+    station     = "8577330",
+    product     = "water_temperature",
+    units       = "metric",
+    time_zone   = "gmt",
+    application = "UMCES_MEES702",
+    format      = "csv"
+  )
+
+# Perform request and parse CSV response
+resp <- req_perform(req)
+water_temp <- resp |>
+  resp_body_string() |>
+  I() |>
+  read_csv()
+
+head(water_temp)
+
+write.csv(water_temp, "dataderived/water_temp.csv", row.names = FALSE)
